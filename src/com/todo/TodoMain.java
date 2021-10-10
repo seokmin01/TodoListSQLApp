@@ -7,15 +7,15 @@ import com.todo.menu.Menu;
 import com.todo.service.TodoUtil;
 
 public class TodoMain {
-	
+
 	public static void start() {
-	
+
 		Scanner sc = new Scanner(System.in);
 		TodoList l = new TodoList();
 		boolean isList = false;
 		boolean quit = false;
-		
-		TodoUtil.loadList(l, "todolist.txt");
+
+//		TodoUtil.loadList(l, "todolist.txt");
 		Menu.displaymenu();
 		do {
 			Menu.prompt();
@@ -26,15 +26,15 @@ public class TodoMain {
 			case "add":
 				TodoUtil.createItem(l);
 				break;
-			
+
 			case "del":
 				TodoUtil.deleteItem(l);
 				break;
-				
+
 			case "edit":
 				TodoUtil.updateItem(l);
 				break;
-				
+
 			case "ls":
 				TodoUtil.listAll(l);
 				break;
@@ -51,24 +51,24 @@ public class TodoMain {
 				isList = true;
 				System.out.println("제목역순으로 정렬하였습니다.");
 				break;
-				
+
 			case "ls_date":
 				l.sortByDate();
 				isList = true;
 				System.out.println("날짜순으로 정렬하였습니다.");
 				break;
-				
+
 			case "ls_date_desc":
 				l.sortByDate();
 				l.reverseList();
 				isList = true;
 				System.out.println("날짜역순으로 정렬하였습니다.");
 				break;
-				
+
 			case "ls_cate":
 				TodoUtil.ls_cate(l);
 				break;
-				
+
 			case "find":
 				String keyword = sc.nextLine().trim();
 				if (keyword.equals(""))
@@ -76,7 +76,7 @@ public class TodoMain {
 				else
 					TodoUtil.findItem(l, keyword);
 				break;
-				
+
 			case "find_cate":
 				String keyword_cate = sc.nextLine().trim();
 				if (keyword_cate.equals(""))
@@ -85,10 +85,22 @@ public class TodoMain {
 					TodoUtil.findCateItem(l, keyword_cate);
 				break;
 
+			case "comp":
+				String input = sc.nextLine().trim();
+				if (input.equals(""))
+					System.out.println("완료할 할 일의 번호를 같이 입력해주세요.");
+				else
+					TodoUtil.completeItem(l, Integer.parseInt(input));
+				break;
+
+			case "ls_comp":
+				TodoUtil.completeList(l);
+				break;
+
 			case "exit":
 				quit = true;
 				break;
-				
+
 			case "help":
 				Menu.displaymenu();
 				break;
@@ -97,8 +109,9 @@ public class TodoMain {
 				System.out.println("올바른 명령어를 입력해주세요. (help를 입력하면 명령어를 볼 수 있습니다.)");
 				break;
 			}
-			
-			if(isList) l.listAll();
+
+			if (isList)
+				TodoUtil.listAll(l);
 		} while (!quit);
 		TodoUtil.saveList(l, "todolist.txt");
 	}
