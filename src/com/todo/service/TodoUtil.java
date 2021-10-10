@@ -112,6 +112,14 @@ public class TodoUtil {
 		}
 	}
 
+	public static void listAll(TodoList l, String order, int n) {
+		System.out.println("[전체 목록, 총 " + l.getCount() + "개]");
+
+		for (TodoItem item : l.getOrderedList(order, n)) {
+			System.out.println(item.getId() + item.toString());
+		}
+	}
+
 	public static void saveList(TodoList l, String fileName) {
 		try {
 			Writer w = new FileWriter(fileName);
