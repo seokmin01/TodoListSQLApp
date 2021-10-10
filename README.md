@@ -1,1 +1,1 @@
-# TTodoListSQLApp for 실프1 6주차 실습
+# TodoListSQLApp for 실프1 6주차 실습
